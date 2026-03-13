@@ -28,11 +28,18 @@ def generate_short_code(length=6):
 def shorten_url():
     data = request.get_json()
     original_url = data.get("url")
+    custom_alias = data.get("custom_alias", "").strip()
 
     if not original_url:
         return jsonify({"error": "URL is required"}), 400
 
-    short_code = generate_short_code()
+    if custom_alias:
+        existing_alias = URLMap.query.filter_by(short_code=custom_alias).first()
+        if existing_alias:
+            return jsonify({"error": "Custom alias is already taken"}), 409
+        short_code = custom_alias
+    else:
+        short_code = generate_short_code()
 
     new_url = URLMap(
         original_url=original_url,
