@@ -2,6 +2,18 @@
 
 A scalable URL shortening service built with Flask, Redis, and PostgreSQL. The system generates shortened links, redirects users efficiently, and tracks usage analytics for each shortened URL.
 
+## Architecture
+
+Client Request
+     │
+     ▼
+Flask API (URL Shortener)
+     │
+ ┌───┴───────────────┐
+ ▼                   ▼
+Redis Cache      PostgreSQL
+Fast redirects   Persistent storage
+
 ## Features
 - Generate short URLs
 - Redirect shortened links to original destinations
