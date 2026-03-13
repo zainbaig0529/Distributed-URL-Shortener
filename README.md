@@ -1,26 +1,56 @@
-# Distributed URL Shortener
+## Distributed URL Shortener
 
-A scalable URL shortening service built with Flask, Redis, and PostgreSQL. The system generates shortened links, redirects users efficiently, and tracks usage analytics for each shortened URL.
+A backend system that generates shortened URLs and redirects users efficiently using caching and persistent storage.
 
+### Features
 
-## Features
-- Generate short URLs
-- Redirect shortened links to original destinations
-- Redis caching for faster lookups
-- PostgreSQL persistence for URL storage
-- Analytics tracking for click counts and usage data
-- RESTful API design
+* Generate shortened URLs
+* Redirect short links to original URLs
+* Redis caching for fast lookups
+* PostgreSQL persistent storage
+* Click analytics tracking
+* Custom alias support
+* URL expiration support
+* Docker containerized services
 
-## Tech Stack
-- Python
-- Flask
-- Redis
-- PostgreSQL
-- Docker
+### Tech Stack
 
-## Future Improvements
-- Custom aliases for URLs
-- Expiration dates for links
-- Rate limiting and abuse prevention
-- User authentication and dashboard
-- Horizontal scaling with load balancing
+Backend:
+
+* Python
+* Flask
+* SQLAlchemy
+
+Infrastructure:
+
+* Redis (caching layer)
+* PostgreSQL (database)
+* Docker Compose (service orchestration)
+
+### Architecture
+
+Client Request
+↓
+Flask API (URL Shortener Service)
+↓
+Redis Cache → Fast redirect lookup
+↓
+PostgreSQL → Persistent storage and analytics
+
+### API Endpoints
+
+POST /shorten
+Creates a shortened URL.
+
+GET /<short_code>
+Redirects the user to the original URL.
+
+GET /stats/<short_code>
+Returns analytics information about a short link.
+
+### Running the Project
+
+```bash
+docker compose up --build
+```
+
